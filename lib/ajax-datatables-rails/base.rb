@@ -93,8 +93,8 @@ module AjaxDatatablesRails
     end
 
     def simple_search(records)
-      return records unless (params[:search].present? && params[:search][:value].present?)
-      conditions = build_conditions_for(params[:search][:value])
+      return records unless (params[:sSearch].present? && params[:sSearch][:value].present?)
+      conditions = build_conditions_for(params[:sSearch][:value])
       records = records.where(conditions) if conditions
       records
     end
@@ -139,7 +139,7 @@ module AjaxDatatablesRails
 
     def aggregate_query
       conditions = searchable_columns.each_with_index.map do |column, index|
-        value = params[:columns]["#{index}"][:search][:value] if params[:columns]
+        value = params[:columns]["#{index}"][:sSearch][:value] if params[:columns]
         search_condition(column, value) unless value.blank?
       end
       conditions.compact.reduce(:and)
@@ -158,11 +158,11 @@ module AjaxDatatablesRails
     end
 
     def page
-      (params[:start].to_i / per_page) + 1
+      (params[:idisplaystart].to_i / per_page) + 1
     end
 
     def per_page
-      params.fetch(:length, 10).to_i
+      params.fetch(:iDisplayLength, 10).to_i
     end
 
     def sort_column(item)
