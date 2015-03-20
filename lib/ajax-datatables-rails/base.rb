@@ -172,6 +172,7 @@ module AjaxDatatablesRails
       deprecated_sort_column(item)
     end
 
+
     def deprecated_sort_column(item)
       sortable_columns[sortable_displayed_columns.index(item[:column])]
     end
